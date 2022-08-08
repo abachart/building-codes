@@ -15,6 +15,7 @@ db = SQLAlchemy(app)
 def home():
     return render_template('home.html')
 
+#from routes_old import *
 from routes import *
 
 # app name 
