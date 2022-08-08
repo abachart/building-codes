@@ -1,0 +1,33 @@
+{%extends "_base.html"%}
+{%block content%}
+<br><br>
+
+<div class="formwrapper">
+	<h2>Create new location:</h2>
+	<form action="" method="post" novalidate>
+		{{ create_form.hidden_tag() }}
+		<table>
+			<tr>
+				<th>{{ create_form.city.label }}</th>
+				<th>{{ create_form.city() }}</th>
+			</tr>
+			<tr>
+				<td>{{ create_form.state.label }}</td>
+				<td>{{ create_form.state() }}</td>
+			</tr>
+			<tr>
+				<td>{{ create_form.submit() }}</td>
+		</table>
+	</form>
+</div>
+<br><br>
+<div class="formwrapper">
+	<h2>Delete Location:</h2>
+	<form action="" method="post" onsubmit="alert('Are you sure?')">
+		{{ delete_form.hidden_tag() }}
+		{{ delete_form.location_select() }}
+		{{ delete_form.delete() }}
+	</form>
+</div>
+
+{% endblock %}

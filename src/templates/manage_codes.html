@@ -1,0 +1,41 @@
+{%extends "_base.html"%}
+{%block content%}
+<br><br>
+
+<div class="formwrapper">
+	<h2>Create new code:</h2>
+	<form action="" method="post" novalidate>
+		{{ form.hidden_tag() }}
+		<table>
+			<tr>
+				<th>{{ form.name.label }}</th>
+				<th>{{ form.year.label }}</th>
+			</tr>
+			<tr>
+				<td>{{ form.name(size=35) }}</td>
+				<td>{{ form.year(size=15) }}</td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<th>{{ form.link.label }}</th>
+			</tr>
+			<tr>
+				<td>{{ form.link(size=40) }}</td>
+			</tr>
+		</table>
+		<br>
+		<p>{{ form.submit() }}</p>
+	</form>
+</div>
+
+<div class="formwrapper">
+	<form action="" method="post" onsubmit="alert('Are you sure?')">
+		<h2>Delete code:</h2>
+		{{ delete_form.hidden_tag() }}
+		{{ delete_form.code_select() }}
+		{{ delete_form.delete() }}
+	</form>
+</div>
+
+{% endblock %}

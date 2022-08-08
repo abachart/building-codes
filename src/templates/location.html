@@ -1,0 +1,28 @@
+{%extends "_base.html"%}
+{%block content%}
+List of codes for {{location}}:
+<br><br>
+
+{%if location%}
+<table>
+{%for item in items%}
+	<tr>
+		<th><a href="{{url_for('code_link', code_id=item.code_id)}}" target="_blank" rel="noopener noreferrer">{{item}}</a></th>
+		<th></th>
+		<th><a href="{{url_for('delete_item_from_location', location_id=item.location_id, item_id=item.id)}}">Delete</a></th>
+	</tr>
+{%endfor%}
+</table>
+{%endif%}
+
+<br>
+<div class="formwrapper">
+	<form action="" method="post" novalidate>
+		{{ add_form.hidden_tag() }}
+		{{ add_form.item_select() }}
+		{{ add_form.add() }}
+	</form>
+</div>
+<br>
+<br>
+{%endblock%}

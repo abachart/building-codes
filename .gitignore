@@ -1,0 +1,9 @@
+#ignore everything in environment folder
+/environment
+#ignore todo list
+todo.txt
+#ignore .db files
+*Db.*
+src/building_codes.db
+
+.vscode/extensions.json
