@@ -13,7 +13,7 @@ class CreateCodeForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     year = StringField('Year', validators=[DataRequired()])
     link = StringField('Link', validators=[DataRequired()])
-    submit = SubmitField('Add')
+    submit_create = SubmitField('Add')
 
 # For creating a new location
 class CreateLocationForm(FlaskForm):
