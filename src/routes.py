@@ -36,7 +36,7 @@ class SelectLocationDeleteForm(FlaskForm):
     location_select = SelectField(u'Delete', coerce=int)
     submit_delete_location = SubmitField('Delete')
     
-##### FUNCTIONS #####
+##### GENERAL FUNCTIONS #####
 # For checking if a building code is already tied to a location
 def exists(item, location):
     for i in location:
@@ -63,11 +63,18 @@ def locations():
 # Main route
 @app.route('/locations/<int:location_id>', methods = ['GET', 'POST'])
 def location(location_id):
+    # forms
     add_form = AddItemForm()
+    
+    # get the location, all the codes, and all the items tied to the location
     cur_location = Location.query.filter_by(id=location_id).first_or_404(description = 'Location not found')
     cur_codes = BuildingCode.query.all()
     cur_items = Item.query.filter_by(location_id=location_id).all()
+    
+    # add items to the form
     add_form.item_select.choices = [(code.id, f'{BuildingCode.query.get(code.id).name}, {BuildingCode.query.get(code.id).year}') for code in cur_codes]
+    
+    # if the form is submitted, tie the code to the location by creating an item
     if request.method == 'POST':
         if add_form.validate_on_submit():
             code_id = add_form.item_select.data
@@ -113,12 +120,12 @@ def delete_item_from_location(location_id, item_id):
 @app.route('/manage-codes', methods = ['GET', 'POST'])
 def manage_codes():
     all_codes = BuildingCode.query.order_by('name')
-    form = CreateCodeForm()
+    create_form = CreateCodeForm()
     delete_form = SelectCodeDeleteForm()
     delete_form.code_select.choices = [(code.id, code.name) for code in all_codes]
     if request.method == 'POST':
-        if form.validate_on_submit():
-            new_code = BuildingCode(name = form.name.data, year = form.year.data, link = form.link.data)
+        if create_form.validate_on_submit():
+            new_code = BuildingCode(name = create_form.name.data, year = create_form.year.data, link = create_form.link.data)
             db.session.add(new_code)
             db.session.commit()
             flash('New code added!')
@@ -132,7 +139,7 @@ def manage_codes():
             return redirect(url_for('manage_codes'))
     else:
         flash('All fields are required.')
-    return render_template('manage_codes.html', form=form, delete_form=delete_form, codes=all_codes, cur_page='manage_codes')
+    return render_template('manage_codes.html', create_form=create_form, delete_form=delete_form, codes=all_codes, cur_page='manage_codes')
 
 # This route deletes a code and removes any item ties it has to locations
 def delete_code(code_id):
