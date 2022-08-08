@@ -1,12 +1,12 @@
 {% extends "_base.html"%}
 {% block content %}
-Locations:
-<br><br>
-	{% if cur_locations|length == 0 %}
-    <p style="color:blue;"> Ooops. There are no users currently in your database. Make sure to add them first. </p>
-    {% endif %}
-	<!-- for loop to display links to all locations -->
-	{% for location in cur_locations %}
-		<li class="link"><a href="/locations/{{location.id}}">{{location}}</a></li>
-	{% endfor %}
+<div class="row">
+	<div class="column">
+		<h2>Locations</h2>
+		<ul>
+		{% for location in cur_locations %}
+			<li class = "link"><a href="{{ url_for('location', location_id = location.id)}}">{{location}}</a></li>
+		{% endfor %}
+	</div>
+</div>
 {% endblock %}

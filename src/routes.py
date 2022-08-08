@@ -52,8 +52,8 @@ def exists(item, location):
 #page that shows list of all locations
 @app.route('/locations')
 def locations():
-    cur_locations = Location.query.all()
-    return render_template('locations_home.html', cur_locations=cur_locations)
+    cur_locations = Location.query.order_by(Location.state, Location.city)
+    return render_template('locations_home.html', cur_locations=cur_locations, cur_page='location')
 
 #page that shows all codes for a location #***
 @app.route('/locations/<int:location_id>', methods = ['GET', 'POST'])
@@ -69,7 +69,7 @@ def location(location_id):
             if(code_id not in [item.code_id for item in cur_items]):
                 add_item(code_id, location_id)
             return redirect(url_for('location', location_id=location_id))
-    return render_template('location.html', location=cur_location, codes=cur_codes, items=cur_items, add_form=add_form)
+    return render_template('location.html', location=cur_location, codes=cur_codes, items=cur_items, add_form=add_form, cur_page='location')
 def add_item(code_id, location_id):
     item = Item(code_id=code_id, location_id=location_id)
     db.session.add(item)
@@ -127,7 +127,7 @@ def manage_codes():
             return redirect(url_for('manage_codes'))
     else:
         flash('All fields are required.')
-    return render_template('manage_codes.html', form=form, delete_form=delete_form, codes=all_codes)
+    return render_template('manage_codes.html', form=form, delete_form=delete_form, codes=all_codes, cur_page='manage_codes')
 
 def delete_code(code_id):
     code = BuildingCode.query.filter_by(id = code_id).first_or_404(description = "Error")
@@ -162,9 +162,7 @@ def manage_locations():
             db.session.commit()
             flash('Location deleted!')
             return redirect(url_for('manage_locations'))
-    else:
-        flash('All fields are required.')
-    return render_template('manage_locations.html', create_form=create_form, delete_form=delete_form, locations=all_locations)
+    return render_template('manage_locations.html', create_form=create_form, delete_form=delete_form, locations=all_locations, cur_page='manage_locations')
 
 
 @app.route('/test')

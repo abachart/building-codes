@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>Building Codes Directory</title>
 		<link rel="stylesheet" type = "text/css" href="/static/style.css">
-		
 	</head>
     <body>
-		{% block content %}
-		{% endblock %}
+		<div class="topnav">
+			<a href="/locations"{% if cur_page == "location" %}class="active"{% endif %}>View Locations</a>
+			<a href="/manage-locations"{% if cur_page == "manage_locations" %}class="active"{% endif %}>Manage Locations</a>
+			<a href="/manage-codes"{% if cur_page == "manage_codes" %}class="active"{% endif %}>Manage Codes</a>
+		</div>
+		<div class="flask_block">
+			{% block content %}
+			{% endblock %}
+		</div>
 	</body>
-	<footer>
-		<br><br><br>
-		<a href="{{url_for('home')}}">Home</a>
-		<a href = "{{url_for('locations')}}">Locations</a>
-	</footer>
 </html>

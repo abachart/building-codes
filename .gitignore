@@ -5,5 +5,5 @@ todo.txt
 #ignore .db files
 *Db.*
 src/building_codes.db
-
-.vscode/extensions.json
+#ignore vscode stuff
+.vscode
