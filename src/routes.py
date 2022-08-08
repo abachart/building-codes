@@ -13,28 +13,28 @@ class CreateCodeForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     year = StringField('Year', validators=[DataRequired()])
     link = StringField('Link', validators=[DataRequired()])
-    submit_create = SubmitField('Add')
+    submit_create_code = SubmitField('Add')
 
 # For creating a new location
 class CreateLocationForm(FlaskForm):
     state = SelectField('State', choices=[('N/A', 'Other'), ('AL', 'Alabama'), ('AK', 'Alaska'), ('AZ', 'Arizona'), ('AR', 'Arkansas'), ('CA', 'California'), ('CO', 'Colorado'), ('CT', 'Connecticut'), ('DE', 'Delaware'), ('DC', 'District of Columbia'), ('FL', 'Florida'), ('GA', 'Georgia'), ('HI', 'Hawaii'), ('ID', 'Idaho'), ('IL', 'Illinois'), ('IN', 'Indiana'), ('IA', 'Iowa'), ('KS', 'Kansas'), ('KY', 'Kentucky'), ('LA', 'Louisiana'), ('ME', 'Maine'), ('MD', 'Maryland'), ('MA', 'Massachusetts'), ('MI', 'Michigan'), ('MN', 'Minnesota'), ('MS', 'Mississippi'), ('MO', 'Missouri'), ('MT', 'Montana'), ('NE', 'Nebraska'), ('NV', 'Nevada'), ('NH', 'New Hampshire'), ('NJ', 'New Jersey'), ('NM', 'New Mexico'), ('NY', 'New York'), ('NC', 'North Carolina'), ('ND', 'North Dakota'), ('OH', 'Ohio'), ('OK', 'Oklahoma'), ('OR', 'Oregon'), ('PA', 'Pennsylvania'), ('RI', 'Rhode Island'), ('SC', 'South Carolina'), ('SD', 'South Dakota'), ('TN', 'Tennessee'), ('TX', 'Texas'), ('UT', 'Utah'), ('VT', 'Vermont'), ('VA', 'Virginia'), ('WA', 'Washington'), ('WV', 'West Virginia'), ('WI', 'Wisconsin'), ('WY', 'Wyoming')])
     city = StringField('City', validators=[DataRequired()])
-    submit = SubmitField('Add')
+    submit_create_location = SubmitField('Add')
     
 # For adding a code to a location
 class AddItemForm(FlaskForm):
     item_select = SelectField(u'Add Code', coerce=int)
-    add = SubmitField('Add')
+    submit_add_item = SubmitField('Add')
     
 # For selecting a code to be deleted from the database
-class ConfirmDeleteForm(FlaskForm):
+class SelectCodeDeleteForm(FlaskForm):
     code_select = SelectField(u'Delete', coerce=int)
-    delete = SubmitField('Delete')
+    submit_delete_code = SubmitField('Delete')
 
 # For selecting a location to be deleted from the database
-class DeleteLocationForm(FlaskForm):
+class SelectLocationDeleteForm(FlaskForm):
     location_select = SelectField(u'Delete', coerce=int)
-    delete = SubmitField('Delete')
+    submit_delete_location = SubmitField('Delete')
     
 ##### FUNCTIONS #####
 # For checking if a building code is already tied to a location
@@ -114,7 +114,7 @@ def delete_item_from_location(location_id, item_id):
 def manage_codes():
     all_codes = BuildingCode.query.order_by('name')
     form = CreateCodeForm()
-    delete_form = ConfirmDeleteForm()
+    delete_form = SelectCodeDeleteForm()
     delete_form.code_select.choices = [(code.id, code.name) for code in all_codes]
     if request.method == 'POST':
         if form.validate_on_submit():
@@ -153,7 +153,7 @@ def delete_code(code_id):
 def manage_locations():
     all_locations = Location.query.order_by('city')
     create_form = CreateLocationForm()
-    delete_form = DeleteLocationForm()
+    delete_form = SelectLocationDeleteForm()
     delete_form.location_select.choices = [(location.id, location.city) for location in all_locations]
     if request.method == 'POST':
         if create_form.validate_on_submit():

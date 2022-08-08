@@ -14,7 +14,7 @@
 				<td>{{ create_form.state() }}</td>
 			</tr>
 			<tr>
-				<td>{{ create_form.submit() }}</td>
+				<td>{{ create_form.submit_create_location() }}</td>
 		</table>
 	</form>
 </div>
@@ -24,7 +24,7 @@
 	<form action="" method="post" onsubmit="alert('Are you sure?')">
 		{{ delete_form.hidden_tag() }}
 		{{ delete_form.location_select() }}
-		{{ delete_form.delete() }}
+		{{ delete_form.submit_delete_location() }}
 	</form>
 </div>
 
