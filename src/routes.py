@@ -10,7 +10,6 @@ def exists(item, location):
     return False
 
 ##### ROUTES #####
-
 ### LOCATION_HOME ###
 # This is the page that will display the entire list of locations
 
@@ -37,7 +36,12 @@ def location(location_id):
     cur_items = Item.query.filter_by(location_id=location_id).all()
     
     # add items to the form
-    add_form.item_select.choices = [(code.id, f'{BuildingCode.query.get(code.id).name}, {BuildingCode.query.get(code.id).year}') for code in cur_codes]
+    #add_form.item_select.choices = [(code.id, f'{BuildingCode.query.get(code.id).name}, {BuildingCode.query.get(code.id).year}') for code in cur_codes]
+    choices = []
+    for code in cur_codes:
+        if(code.id not in [item.code_id for item in cur_items]):
+            choices.append((code.id, f'{code.name}, {code.year}'))
+    add_form.item_select.choices = choices
     
     # if the form is submitted, tie the code to the location by creating an item
     if request.method == 'POST':
