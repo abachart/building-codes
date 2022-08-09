@@ -21,10 +21,12 @@
 <br><br>
 <div class="formwrapper">
 	<h2>Delete Location:</h2>
-	<form action="" method="post" onsubmit="alert('Are you sure?')">
+	<form action="" method="post">
 		{{ delete_form.hidden_tag() }}
-		{{ delete_form.location_select() }}
-		{{ delete_form.submit_delete_location() }}
+		{{ delete_form.select() }}
+		{{ delete_form.confirm_delete.label }}
+		{{ delete_form.confirm_delete() }}
+		{{ delete_form.submit_delete() }}
 	</form>
 </div>
 

@@ -1,7 +1,7 @@
 from click import confirm
 from flask import Flask
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField
+from wtforms import StringField, SubmitField, SelectField, BooleanField
 from wtforms.validators import DataRequired
 from app import app, db
 from models import BuildingCode, Item, Location
@@ -25,16 +25,12 @@ class CreateLocationForm(FlaskForm):
 class AddItemForm(FlaskForm):
     item_select = SelectField(u'Add Code', coerce=int)
     submit_add_item = SubmitField('Add')
-    
-# For selecting a code to be deleted from the database
-class SelectCodeDeleteForm(FlaskForm):
-    code_select = SelectField(u'Delete', coerce=int)
-    submit_delete_code = SubmitField('Delete')
 
 # For selecting a location to be deleted from the database
-class SelectLocationDeleteForm(FlaskForm):
-    location_select = SelectField(u'Delete', coerce=int)
-    submit_delete_location = SubmitField('Delete')
+class SelectDeleteForm(FlaskForm):
+    select = SelectField(u'Delete', coerce=int)
+    confirm_delete = BooleanField('Confirm Delete', validators=[DataRequired()])
+    submit_delete = SubmitField('Delete')
     
 ##### GENERAL FUNCTIONS #####
 # For checking if a building code is already tied to a location
@@ -121,8 +117,8 @@ def delete_item_from_location(location_id, item_id):
 def manage_codes():
     all_codes = BuildingCode.query.order_by('name')
     create_form = CreateCodeForm()
-    delete_form = SelectCodeDeleteForm()
-    delete_form.code_select.choices = [(code.id, code.name) for code in all_codes]
+    delete_form = SelectDeleteForm()
+    delete_form.select.choices = [(code.id, code.name) for code in all_codes]
     if request.method == 'POST':
         if create_form.validate_on_submit():
             new_code = BuildingCode(name = create_form.name.data, year = create_form.year.data, link = create_form.link.data)
@@ -131,7 +127,7 @@ def manage_codes():
             flash('New code added!')
             return redirect(url_for('manage_codes'))
         if delete_form.validate_on_submit():##***
-            code_id = delete_form.code_select.data
+            code_id = delete_form.select.data
             code = BuildingCode.query.filter_by(id = code_id).first_or_404(description = "No such code found.")
             db.session.delete(code)
             db.session.commit()
@@ -160,8 +156,8 @@ def delete_code(code_id):
 def manage_locations():
     all_locations = Location.query.order_by('city')
     create_form = CreateLocationForm()
-    delete_form = SelectLocationDeleteForm()
-    delete_form.location_select.choices = [(location.id, location.city) for location in all_locations]
+    delete_form = SelectDeleteForm()
+    delete_form.select.choices = [(location.id, location.city) for location in all_locations]
     if request.method == 'POST':
         if create_form.validate_on_submit():
             new_location = Location(state = create_form.state.data, city = create_form.city.data)
@@ -170,7 +166,7 @@ def manage_locations():
             flash('New location added!')
             return redirect(url_for('manage_locations'))
         if delete_form.validate_on_submit():
-            location_id = delete_form.location_select.data
+            location_id = delete_form.select.data
             location = Location.query.filter_by(id = location_id).first_or_404(description = "Error")
             matching_items = Item.query.filter_by(location_id = location_id).all()
             for i in matching_items:
