@@ -3,8 +3,6 @@
 #ignore todo list
 todo.txt
 #ignore .db files
-*Db.*
-src/building_codes.db
 src/add_data.py
 #ignore vscode stuff
 .vscode
