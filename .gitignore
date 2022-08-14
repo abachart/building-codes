@@ -5,7 +5,6 @@ todo.txt
 #ignore .db files
 *Db.*
 src/building_codes.db
-#ignore .png files
-*.png
+src/add_data.py
 #ignore vscode stuff
 .vscode

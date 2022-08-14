@@ -220,12 +220,16 @@ def login():
     if request.method == 'POST':
         # allow registration
         if registration_form.validate_on_submit():
-            user = User(username=registration_form.username.data)
-            user.set_password(registration_form.password.data)
-            db.session.add(user)
-            db.session.commit()
-            login_user(user)
-            return redirect(url_for('home'))
+            if User.query.filter_by(username=registration_form.username.data).first() is None:
+                user = User(username=registration_form.username.data)
+                user.set_password(registration_form.password.data)
+                db.session.add(user)
+                db.session.commit()
+                login_user(user)
+                return redirect(url_for('home'))
+            else:
+                flash('Username already taken')
+                return redirect(url_for('login'))
         # allow sign in
         if login_form.validate_on_submit():
             user = User.query.filter_by(username=login_form.username.data).first()
@@ -264,6 +268,7 @@ def account():
                 location_codes = LocationCodes.query.filter_by(location_id=location.id).all()
                 for location_code in location_codes:
                     db.session.delete(location_code)
+                db.session.delete(location)
                 db.session.delete(user_location)
             user_projects = UserProjects.query.filter_by(user_id=current_user.id).all()
             for user_project in user_projects:
@@ -271,6 +276,7 @@ def account():
                 project_codes = ProjectCodes.query.filter_by(project_id=project.id).all()
                 for project_code in project_codes:
                     db.session.delete(project_code)
+                db.session.delete(project)
                 db.session.delete(user_project)
             # delete user
             db.session.delete(current_user)
