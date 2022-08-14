@@ -1,9 +1,9 @@
 from random import choices
 from flask import render_template, request, url_for, redirect, flash
 from flask_login import current_user, login_user, logout_user, login_required
-from src.app import app, db
-from src.forms import LoginForm, RegistrationForm, AddCodeForm, CreateProjectForm, DeleteForm, CreateCodeForm, CreateLocationForm, DeleteCodeForm, DeleteAccountForm
-from src.models import User, UserProjects, UserLocations, Project, Location, ProjectCodes, LocationCodes, Code
+from app import app, db
+from forms import LoginForm, RegistrationForm, AddCodeForm, CreateProjectForm, DeleteForm, CreateCodeForm, CreateLocationForm, DeleteCodeForm, DeleteAccountForm
+from models import User, UserProjects, UserLocations, Project, Location, ProjectCodes, LocationCodes, Code
 from werkzeug.urls import url_parse
 from werkzeug.security import generate_password_hash, check_password_hash
 
