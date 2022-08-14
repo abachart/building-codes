@@ -1,0 +1,12 @@
+{% extends "_base.html"%}
+{% block content %}
+<div class="row">
+	<div class="column">
+		<h2>Projects</h2>
+		<ul>
+		{% for project in projects %}
+			<li class = "link"><a href="{{url_for('project', project_id = project.id)}}">{{project}}</a></li>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}

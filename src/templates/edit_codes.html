@@ -1,0 +1,37 @@
+{%extends "_base.html"%}
+{%block content%}
+
+<div class="div-parent">
+	<div>
+		<h2>Create new code:</h2>
+		<form action="" method="post" novalidate>
+			{{ create_form.hidden_tag() }}
+			<p>
+				{{ create_form.name.label }}<br>
+				{{ create_form.name(size=35) }}<br>
+				{{ create_form.year.label }}<br>
+				{{ create_form.year(size=15) }}<br>
+				{{ create_form.link.label }}<br>
+				{{ create_form.link(size=40) }}<br>
+			</p>
+			<p>
+				{{ create_form.submit() }}<br>
+			</p>
+		</form>
+	</div>
+	<div class="spacer"></div>
+	{%if cur_user.is_admin%}
+	<div>
+		<h2>Delete code:</h2>
+		<form action="" method="post">
+			{{ delete_form.hidden_tag() }}
+			{{ delete_form.select() }}
+			{{ delete_form.confirm.label }}
+			{{ delete_form.confirm() }}
+			{{ delete_form.submit() }}
+		</form>
+	</div>
+	{%endif%}
+</div>
+
+{% endblock %}

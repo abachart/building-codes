@@ -1,12 +1,12 @@
-{% extends "_base.html"%}
+{% extends "_base.html" %}
 {% block content %}
 <div class="row">
 	<div class="column">
 		<h2>Locations</h2>
 		<ul>
-		{% for location in cur_locations %}
-			<li class = "link"><a href="{{ url_for('location', location_id = location.id)}}">{{location}}</a></li>
+		{% for location in locations %}
+			<li class = "link"><a href="{{url_for('location', location_id = location.id)}}">{{location}}</a></li>
 		{% endfor %}
 	</div>
-</div>
+
 {% endblock %}

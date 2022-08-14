@@ -6,9 +6,19 @@
 	</head>
     <body>
 		<div class="topnav">
-			<a href="/locations"{% if cur_page == "location" %}class="active"{% endif %}>View Locations</a>
-			<a href="/manage-locations"{% if cur_page == "manage_locations" %}class="active"{% endif %}>Manage Locations</a>
-			<a href="/manage-codes"{% if cur_page == "manage_codes" %}class="active"{% endif %}>Manage Codes</a>
+			<a href="/"{% if cur_page == "home" %}class="active"{% endif %}>Home</a>
+			<a href="/projects"{% if cur_page == "projects" %}class="active"{% endif %}>Projects</a>
+			<a href="/edit-projects"{% if cur_page == "edit-projects" %}class="active"{% endif %}>Edit Projects</a>
+			<a href="/locations"{% if cur_page == "location" %}class="active"{% endif %}>Locations</a>
+			<a href="/edit-locations"{% if cur_page == "edit-locations" %}class="active"{% endif %}>Edit Locations</a>
+			<a href="/edit-codes"{% if cur_page == "edit-codes" %}class="active"{% endif %}>Edit Codes</a>
+			{% if current_user.is_authenticated == True %}
+				<a class="float-right" href="/logout">Logout</a>
+				<a class="float-right" href="/account">{{ current_user.username }}</a>
+			{% else %}
+				<a class="float-right" href="/login">Login</a>
+			{% endif %}
+			
 		</div>
 		<div class="flask_block">
 			{% block content %}

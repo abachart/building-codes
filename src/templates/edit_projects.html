@@ -1,0 +1,37 @@
+{%extends "_base.html"%}
+{%block content%}
+<div class="div-parent">
+	<div>	
+		<h2>Create New Project:</h2>
+		<form action="" method="post" novalidate>
+			{{ create_form.hidden_tag() }}
+			<p>
+				{{ create_form.name.label }}<br>
+				{{ create_form.name() }}<br>
+			</p>
+			<p>
+				{{ create_form.submit() }}<br>
+			</p>
+		</form>
+	</div>
+	<div class="spacer"></div>
+	<div>
+		<h2>Delete Project</h2>
+		<form action="" method="post" novalidate>
+			{{ delete_form.hidden_tag() }}
+			<p>
+				{{ delete_form.select.label }}<br>
+				{{ delete_form.select() }}<br>
+				{{ delete_form.password.label() }}<br>
+				{{ delete_form.password() }}<br>
+			</p>
+			<p>
+				{{ delete_form.submit() }}<br>
+			</p>
+		</form>
+	</div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{%extends "_base.html"%}
+{%block content%}
+<div class="div-parent">
+	<div>
+		<h1>Log in</h1>
+		<div class="formwrapper">
+			<form action="" method="post" novalidate>
+				{{login_form.hidden_tag()}}
+				<p>
+					{{login_form.username.label}}<br>
+					{{login_form.username()}}<br>
+					{{login_form.password.label}}<br>
+					{{login_form.password()}}<br>
+				</p>
+				<p>
+					{{login_form.remember_me.label}}<br>
+					{{login_form.remember_me()}}<br>
+				</p>
+				<p>
+					{{login_form.submit()}}<br>
+				</p>
+			</form>
+		</div>
+	</div>
+	<div class="spacer"></div>
+	<div>
+		<h1>Register</h1>
+		<div class="formwrapper">
+			<form action="" method="post" novalidate>
+				{{registration_form.hidden_tag()}}
+				<p>
+					{{registration_form.username.label}}<br>
+					{{registration_form.username()}}<br>
+					{{registration_form.password.label}}<br>
+					{{registration_form.password()}}<br>
+					{{registration_form.password2.label}}<br>
+					{{registration_form.password2()}}<br>
+				</p>
+				<p>
+					{{registration_form.submit()}}<br>
+				</p>
+			</form>
+		</div>
+	</div>
+</div>
+{%endblock%}

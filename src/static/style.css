@@ -18,10 +18,23 @@ body {
 	font-family: Arial, Helvetica, sans-serif;
 	}
 
-	.topnav {
-		overflow: hidden;
-		background-color: var(--default-dark);
-	}
+.float-right {
+	float: right !important;
+}
+
+.div-parent {
+	display: flex;
+}
+
+.spacer {
+	flex: .25;
+}
+
+
+.topnav {
+	overflow: hidden;
+	background-color: var(--default-dark);
+}
 
 .topnav a:hover{
 	background-color: var(--default-grey);
