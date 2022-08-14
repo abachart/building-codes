@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'super-secret-squirrel'
-app.config['SQLALCHEMY_DATABASE_URI'] = uri or 'sqlite:///myDB.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = uri or 'sqlite:///building_codes.db'
 
 db = SQLAlchemy(app)
 login = LoginManager(app)
