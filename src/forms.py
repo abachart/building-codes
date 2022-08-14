@@ -3,7 +3,7 @@ from wsgiref import validate
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, IntegerField
 from wtforms.validators import ValidationError, DataRequired, EqualTo, NumberRange
-from models import User, UserProjects, UserLocations, Project, Location, ProjectCodes, LocationCodes, Code
+from src.models import User, UserProjects, UserLocations, Project, Location, ProjectCodes, LocationCodes, Code
 
 # LoginForm class
 class LoginForm(FlaskForm):
