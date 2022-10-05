@@ -161,10 +161,10 @@ def edit_locations():
             del_location = Location.query.filter_by(id=delete_form.select.data).first()
             del_user_location = UserLocations.query.filter_by(location_id=del_location.id).first()
             del_location_codes = LocationCodes.query.filter_by(location_id=del_location.id).all()
-            for del_location_code in del_location_codes:
-                db.session.delete(del_location_code)
             db.session.delete(del_user_location)
             db.session.delete(del_location)
+            for del_location_code in del_location_codes:
+                db.session.delete(del_location_code)
             db.session.commit()
             return redirect(url_for('edit_locations'))
         if create_form.validate_on_submit():
@@ -197,9 +197,9 @@ def edit_codes():
             for del_code_location in del_code_locations:
                 db.session.delete(del_code_location)
             del_code_projects = ProjectCodes.query.filter_by(code_id=del_code.id).all()
+            db.session.delete(del_code)
             for del_code_project in del_code_projects:
                 db.session.delete(del_code_project)
-            db.session.delete(del_code)
             db.session.commit()
             return redirect(url_for('edit_codes'))
         if create_form.validate_on_submit():
