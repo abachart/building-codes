@@ -19,3 +19,7 @@ login.login_view = 'login'
 
 from routes import *
 from models import *
+
+@app.before_first_request
+def initDB(*args, **kwargs):
+    db.create_all()
