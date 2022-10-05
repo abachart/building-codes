@@ -309,3 +309,4 @@ def nuclear():
     ProjectCodes.query.delete()
     LocationCodes.query.delete()
     Code.query.delete()
+    return redirect(url_for('home'))
