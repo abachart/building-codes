@@ -297,3 +297,15 @@ def code_link(code_id):
 @app.errorhandler(404) 
 def not_found(e): 
     return render_template('404.html')
+
+### temp nuclear, delete all data
+@app.route('/nuclear')
+def nuclear():
+    User.query.delete()
+    UserProjects.query.delete()
+    UserLocations.query.delete()
+    Project.query.delete()
+    Location.query.delete()
+    ProjectCodes.query.delete()
+    LocationCodes.query.delete()
+    Code.query.delete()
