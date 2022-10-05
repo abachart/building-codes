@@ -301,14 +301,21 @@ def not_found(e):
 ### temp nuclear, delete all data
 @app.route('/nuclear')
 def nuclear():
-    db.session.delete(User)
-    db.session.delete(User)
-    db.session.delete(UserProjects)
-    db.session.delete(UserLocations)
-    db.session.delete(Project)
-    db.session.delete(Location)
-    db.session.delete(ProjectCodes)
-    db.session.delete(LocationCodes)
-    db.session.delete(Code)
+    for item in db.session.query(User).all():
+        db.session.delete(item)
+    for item in db.session.query(UserProjects).all():
+        db.session.delete(item)
+    for item in db.session.query(UserLocations).all():
+        db.session.delete(item)
+    for item in db.session.query(Project).all():
+        db.session.delete(item)
+    for item in db.session.query(Location).all():
+        db.session.delete(item)
+    for item in db.session.query(ProjectCodes).all():
+        db.session.delete(item)
+    for item in db.session.query(LocationCodes).all():
+        db.session.delete(item)
+    for item in db.session.query(Code).all():
+        db.session.delete(item)
     db.session.commit()
     return redirect(url_for('home'))

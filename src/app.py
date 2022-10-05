@@ -23,4 +23,7 @@ from models import *
 @app.before_first_request
 def initDB(*args, **kwargs):
     db.create_all()
-    db.commit()
+    db.session.commit()
+    
+if __name__ == '__main__':
+    app.run(debug=True)
