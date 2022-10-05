@@ -1,1 +1,0 @@
-This is a simple directory for engineers to easily navigate building codes. It is built using Flask and SQLAlchemy.
