@@ -1,5 +1,6 @@
 #ignore everything in environment folder
 /environment
+/env
 #ignore todo list
 todo.txt
 #ignore .db files
